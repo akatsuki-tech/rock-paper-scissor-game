@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Rock Paper Scissor</title>   
+  </head>
+
+  <body>
+
+    <section class="preview">
+
+    </section>
+
+  </body>
+  <script>
+
+// const recordCollection = {
+//   2548: {
+//     albumTitle: 'Slippery When Wet',
+//     artist: 'Bon Jovi',
+//     tracks: ['Let It Rock', 'You Give Love a Bad Name']
+//   },
+//   2468: {
+//     albumTitle: '1999',
+//     artist: 'Prince',
+//     tracks: ['1999', 'Little Red Corvette']
+//   },
+//   1245: { 
+//     artist: 'Robert Palmer',
+//     tracks: []
+//   },
+//   5439: {
+//     albumTitle: 'ABBA Gold'
+//   }
+// };
+
+// // Only change code below this line
+// function updateRecords(records, id, prop, value) {
+//   if(recordCollection.tracks != updateRecords[prop] && updateRecords[value] == ''){
+//     updateRecords[records][id] = updateRecords[value]; 
+//   }
+//   else if (recordCollection.tracks == updateRecords[prop] && recordCollection.albumTitle != recordCollection.tracks){
+//     updateRecords[records][id] = updateRecords[value]; 
+//   }
+//   if(recordCollection.tracks == updateRecords[prop] && updateRecords[value] == ''){
+//     [records][id].push(value);
+//   }
+//   else{
+//     delete [records][id];
+//   }
+//   return records;
+// }
+
+// console.log(updateRecords(recordCollection, 5439, 'artist', 'ABBA'));
+
+const opt = ['rock', 'paper', 'scissor'];
+
+function getComputerChoice(){
+  //todo - update the dom with the computer selection  
+  const decision = opt[Math.floor(Math.random() * opt.length)];
+  return decision;
+}
+
+function checkWinner(playerSelection, computerSelection){
+  if(playerSelection==computerSelection){
+      return 'Draw, again.'
+    }
+    else if(
+      (playerSelection == 'rock' && computerSelection == 'paper') ||
+      (playerSelection == 'paper' && computerSelection == 'scissor') ||
+      (playerSelection == 'scissor' && computerSelection == 'rock') 
+    ){
+      return 'Computer';
+    }
+    else{
+      return 'Player';
+    }
+}
+function playRound(playerSelection, computerSelection){
+    const result = checkWinner(playerSelection,computerSelection);
+    if(result == 'Draw, again.'){
+      return 'Tie!'
+    }
+    else if(result == 'Computer'){
+      return `You Lose! ${computerSelection} beats ${playerSelection}` ;
+    }
+    else{
+      return `You Win!  ${playerSelection} beats ${computerSelection}` ;
+    }
+}
+
+function playerDecision(){
+    let playerInput = false;
+    while(playerInput == false){
+      const decision = prompt('Rock Paper Scissor');
+        if(decision == null){
+          continue;
+        }
+        const decisionInLower = decision.toLowerCase();
+        if(opt.includes(decisionInLower)){
+          playerInput = true;
+          return decisionInLower;
+        }
+    }
+}
+
+function game(){
+  let playerScore = 0;
+  let computerScore = 0;
+   console.log('Let`s play!');
+      for(let i = 0; i < 5; i++){
+        const playerSelection = playerDecision();
+        console.log('----------');
+        console.log(i+1); 
+        const computerSelection = getComputerChoice();
+        console.log(playRound(playerSelection, computerSelection));
+        if(checkWinner(playerSelection, computerSelection) == 'Player'){
+          playerScore++;  
+          console.log(`Your score: ${playerScore} - Computer's Score ${computerScore}`);    
+        }
+        else if(checkWinner(playerSelection, computerSelection) == 'Computer'){
+          computerScore++;
+          console.log(`Your score: ${playerScore} - Computer's Score ${computerScore}`);  
+        }
+      }
+    console.log('...........');
+    console.log('Game Over!')
+    if(playerScore > computerScore){
+      console.log('You Won the Game!');
+      
+    }
+    else if(playerScore < computerScore){
+      console.log('You Loss the Game. Try again.');  
+    }
+    else{
+      console.log('Tie Breaker!!!');
+    }
+}
+game();
+
+
+  </script>
+</html>
